@@ -2,12 +2,11 @@ package com.example.calcularcombustivel;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import java.text.NumberFormat;
+
 
 public class MainActivity extends AppCompatActivity {
     private SeekBar alcoolSeekBar;
@@ -26,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     private double validar;
 
-//    private ImageView img;
+    private ImageView img;
+
+    private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,20 +41,20 @@ public class MainActivity extends AppCompatActivity {
         alcoolValor = findViewById(R.id.alcoolValor);
 
         validador = findViewById(R.id.validador);
-//        img = findViewById(R.id.image);
+        img = findViewById(R.id.imagem);
 
         alcoolSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 valorAlcool = (float)progress/10.0;
-                alcoolValor.setText(String.valueOf(valorAlcool));
+                alcoolValor.setText(String.valueOf(currencyFormat.format(valorAlcool)));
                 validar = valorAlcool/valorGasolina;
                 if (validar>=0.7){
                     validador.setText("ETANOL");
-//                    img.setImageResource(R.drawable.alcool);
+                    img.setImageResource(R.drawable.alcool_img);
                 }else{
                     validador.setText("GASOLINA");
-//                    img.setImageResource(R.drawable.gasolina);
+                    img.setImageResource(R.drawable.gasolina_img);
                 }
             }
 
@@ -71,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 valorGasolina = (float)progress/10.0;
-                gasolinaValor.setText(String.valueOf(valorGasolina));
+                gasolinaValor.setText(String.valueOf(currencyFormat.format(valorGasolina)));
 
                 if (validar>=0.7){
                     validador.setText("ETANOL");
-//                    img.setImageResource(R.drawable.alcool);
+                    img.setImageResource(R.drawable.alcool_img);
                 }else{
                     validador.setText("GASOLINA");
-//                    img.setImageResource(R.drawable.gasolina);
+                    img.setImageResource(R.drawable.gasolina_img);
                 }
             }
 
